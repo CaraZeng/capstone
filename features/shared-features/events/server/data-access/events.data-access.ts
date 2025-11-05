@@ -17,7 +17,11 @@ export async function getEvents(filters?: EventFilters) {
   
   // Filter by category
   if (filters?.category) {
-    query.category = filters.category
+    query.category = { $regex: new RegExp(`^${filters.category}$`, 'i') }  // 不区分大小写
+  }
+
+    if (filters?.organizerId) {
+    query.organizerId = filters.organizerId
   }
   
   // Filter by price range

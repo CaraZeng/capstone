@@ -4,9 +4,10 @@ import { notFound } from 'next/navigation'
 export default async function EventDetailsPage({
   params,
 }: {
-  params: { eventId: string }
+  params: Promise<{ eventId: string }> 
 }) {
-  const event = await getEventById(params.eventId)
+  const { eventId } = await params
+  const event = await getEventById(eventId)
   
   if (!event) {
     notFound()

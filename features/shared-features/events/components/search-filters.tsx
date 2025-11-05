@@ -12,28 +12,28 @@ export function SearchFilters() {
   const [category, setCategory] = useState(searchParams.get('category') || '')
   
   const handleSearch = () => {
-    const params = new URLSearchParams()
-    
-    if (search.trim()) {
-      params.set('search', search.trim())
-    }
-    
-    if (category) {
-      params.set('category', category)
-    }
-    
-    startTransition(() => {
-      router.push(`/?${params.toString()}`)
-    })
+  const params = new URLSearchParams()
+  
+  if (search.trim()) {
+    params.set('search', search.trim())
   }
   
-  const handleReset = () => {
-    setSearch('')
-    setCategory('')
-    startTransition(() => {
-      router.push('/')
-    })
+  if (category) {
+    params.set('category', category)
   }
+  
+  startTransition(() => {
+    router.push(`/home?${params.toString()}`)  // 改这里 ✅
+  })
+}
+
+const handleReset = () => {
+  setSearch('')
+  setCategory('')
+  startTransition(() => {
+    router.push('/home')
+  })
+}
   
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mb-8">
